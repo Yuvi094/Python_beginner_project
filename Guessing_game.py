@@ -12,22 +12,7 @@ Diff = int(input("Press 1 for easy difficulty(1-50)\n"
       "press 5 for impossible difficulty(1-10000)"
        ))
 print("--------------------------------")
-roasts = [
-    "Nah bro... even ChatGPT guesses better blindfolded.",
-    "WRONG! Are you typing with oven mitts on?",
-    "That's so off it's basically performance art.",
-    "Error 404: Correct guess not found. Skill issue detected.",
-    "Bro the number just filed a restraining order against your guesses.",
-    "You're not getting warmer... you're literally freezing.",
-    "That's not even in the same postcode as the answer 😂",
-    "Keep going king, the disappointment is building nicely.",
-    "At this rate the number will retire before you find it.",
-    "Bold of you to assume you know what you're doing.",
-    "My WiFi has more connection than you do right now.",
-    "You're guessing like it's interpretive dance.",
-    "Patna traffic makes better decisions than your last guess.",
-    "The number is embarrassed for you right now."
-]
+
 def guessing_game():  
   attempts = 0
   match Diff:
@@ -38,9 +23,9 @@ def guessing_game():
     case 3:
       rand_num = random.randint(1,500)
     case 4:
-      rand_num = random.randint(1,500)
+      rand_num = random.randint(1,1000)
     case 5:
-      rand_num = random.randint(1,500)
+      rand_num = random.randint(1,10000)
     case _:
       print("Inavlid Input. TRY AGAIN")
   while True:
@@ -53,11 +38,16 @@ def guessing_game():
           print(f"You took {attempts} attempts") 
           break 
       print("WRONG")
-      if num  >rand_num :
+      hint = str(input("Want a hint? (y/n)"))
+      if hint.lower() == "y":
+        if num  >rand_num :
           print("GO lower")
-      elif num < rand_num: 
+        elif num < rand_num: 
           print("GO higher")
-          print(random.choice(roasts))
+      elif hint.lower() == "n":
+        print("You will get no hints")
+      else:
+        print("Invalid Input")
      except ValueError:
        print("Try agin.. Invalid input")
        print("-------------------------------")
