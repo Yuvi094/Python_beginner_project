@@ -1,8 +1,8 @@
 This repostries has numeorus small code containing various functions and modules:
 1. Guessing game:
   * Features of this game 
-      -This is a number guessing game I made using Python.
-      -It was organized to be a fun challenge for anyone who wants to test their luck.
+      -This is a number guessing game I made using Python.<br>
+      -It was organized to be a fun challenge for anyone who wants to test their luck.\
       -There are 5 difficulty levels to choose from:
           -Easy (1-50)
           -Medium (1-100)
