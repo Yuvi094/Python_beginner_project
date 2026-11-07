@@ -1,4 +1,4 @@
-import tkinter as t
+
 vault_data =[]
 def save_data(data_list):
     with open("vault_data.txt", "w") as File:
