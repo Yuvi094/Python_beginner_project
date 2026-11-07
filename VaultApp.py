@@ -1,29 +1,20 @@
-
+import json
+import os 
 vault_data =[]
-def save_data(data_list):
-    with open("vault_data.txt", "w") as File:
-        for entry in data_list:
-            data_delimiter = f"{entry['Id']}|{data_list['Name']}|{data_list['Item']}|{data_list['Bill']}|{data_list['Date']}\n"
-            File.write(data_delimiter)
+vaultData = "vaultData.json"
+def save_data(data_list): 
+    with open(vaultData , "w" ) as f:
+        json.dump(data_list, f , indent=5)
+    print("Data has been saved.")
 def load_data():
-    try:
-        temp_vault_list = []
-        with open("vault_data.txt", "r") as File:
-                for data_delimiter in File:
-                    data_parts = data_delimiter.strip().split("|")
-                    entry = {
-                    "Id": data_parts[0],
-                    "Name": data_parts[1],
-                    "Item": data_parts[2],
-                    "Bill": float(data_parts[3]),
-                    "Date": data_parts[4]
-                            
-                        }
-                    temp_vault_list.append(entry)
-        return temp_vault_list
-    except FileNotFoundError:
-        print("File does not exist!!")
-                    
+    if not os.path.exists(vaultData):
+        return []
+    else :
+         try: 
+             with open(vaultData,"r") as f:
+                 return json.load(f)
+         except json.JSONDecodeError:
+             return []             
 def add_data(data_list):
     name_business = input("Enter name of business: ")
     item_name = input("Enter the item name: ")
