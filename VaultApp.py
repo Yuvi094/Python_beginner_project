@@ -1,11 +1,16 @@
 import json
 import os 
+from rich.table import Table
+from rich.console import Console
+from rich.panel  import Panel
+from rich import print
+console = Console()
 vault_data =[]
 vaultData = "vaultData.json"
 def save_data(data_list): 
     with open(vaultData , "w" ) as f:
         json.dump(data_list, f , indent=5)
-    print("Data has been saved.")
+    print("[green]Data has been saved.[/green]")
 def load_data():
     if not os.path.exists(vaultData):
         return []
@@ -23,7 +28,7 @@ def add_data(data_list):
             bill = float(input("Enter the bill amount: "))
             break
         except ValueError:
-            print("Invalid Input ")
+            print("[red]Invalid Input[/red] ")
     date = input("Enter the date of sale: ")
     entry = {
         "Id": len(data_list) + 1,
@@ -35,14 +40,29 @@ def add_data(data_list):
     data_list.append(entry)
 def view_data(data_list):
     if not data_list:
-       print("There is no data to be viewed here.")
-    else:
-        for entry in data_list:
-            print(f"ID: {entry['Id']} | Business: {entry['Name']} | Item: {entry['Item']} | Bill: {entry['Bill']} | Date: {entry['Date']}")
+       print("[red]There is no data to be viewed here.[/red]")
+       return
+    table = Table(title="VAULT")
+
+    table.add_column("Id" , style = "cyan", no_wrap = True)
+    table.add_column("Name" , style = "cyan")
+    table.add_column("Item" , style = "cyan")
+    table.add_column("Bill" , style = "green")
+    table.add_column("Date" , style = "cyan")
+    
+    for entry in data_list:
+        table.add_row(
+                      str(entry["Id"]),
+                      entry["Name"],
+                      entry["Item"],
+                      f"${entry['Bill']: .2f}",
+                      entry["Date"]
+                      )
+    console.print(table)
 vault_data = load_data()
 
 while True:
-   print("-------VAULT------")
+   console.print(Panel("-------VAULT------", title="Vault ledger", style="bold"))
    print("1 to append data")
    print("2 to view data ")
    print("3 to save data ")
